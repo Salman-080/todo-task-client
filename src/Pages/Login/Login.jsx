@@ -18,7 +18,7 @@ const Login = () => {
         signIn(loginEmail,loginPassword)
         .then(res=>{
             console.log(res);
-            navigate("/login");
+            navigate("/dashboardHome");
             toast.success('Successfully Login', {
                 position: "top-center",
                 autoClose: 5000,
