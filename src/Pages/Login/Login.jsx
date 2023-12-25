@@ -16,8 +16,8 @@ const Login = () => {
         const loginPassword = form.get('password');
 
         signIn(loginEmail,loginPassword)
-        .then(res=>{
-            console.log(res);
+        .then(()=>{
+            
             navigate("/dashboardHome");
             toast.success('Successfully Login', {
                 position: "top-center",
