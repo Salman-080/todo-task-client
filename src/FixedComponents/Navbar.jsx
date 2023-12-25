@@ -19,11 +19,13 @@ const Navbar = () => {
     }
     const navLinks = <>
 
-        {
-            user ? <li><NavLink to="/dashboardHome">Dashboard</NavLink></li>
+        <li><NavLink to="/">Home</NavLink></li>
 
-                :
-                <li><NavLink to="/">Home</NavLink></li>
+        {
+            user && <li><NavLink to="/dashboardHome">Dashboard</NavLink></li>
+
+
+
         }
 
         <li><NavLink to="/aboutUs">About Us</NavLink></li>
@@ -75,7 +77,7 @@ const Navbar = () => {
                         </div>
                     ) :
                         <div className="navbar-end">
-                           
+
                         </div>
                 }
 

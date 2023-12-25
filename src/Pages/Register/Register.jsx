@@ -37,7 +37,15 @@ const Register = () => {
                         const res = await axiosPublic.post("/userData", userDatas);
                         console.log(res?.data);
 
-                    
+                        if (res?.data?.insertedId) {
+                            logOut()
+                                .then(res => {
+                                    navigate("/login");
+                                })
+                                .catch(err => {
+
+                                })
+                        }
 
 
                     }).catch((error) => {

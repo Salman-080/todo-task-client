@@ -44,7 +44,7 @@ const Box = ({ taskTitle, taskProgress, id }) => {
                     isDraggingOver={snapshot.isDraggingOver}
                 >
                     <TaskContainer className=" ">
-                        <div className="bg-blue-400 p-2 text-center" >
+                        <div className="bg-violet-800 p-2 text-center text-white font-bold text-lg" >
                             {taskTitle}
                         </div>
 

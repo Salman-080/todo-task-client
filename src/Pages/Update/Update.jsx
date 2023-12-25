@@ -4,6 +4,7 @@ import { AuthContext } from "../../Provider/Provider";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import Swal from "sweetalert2";
 
 const Update = () => {
     const axiosSecure = useAxiosPrivate();
@@ -27,6 +28,15 @@ const Update = () => {
         
         const res = await axiosSecure.put(`/DoUpdateTasksData/${id}`, UpdatingTaskData);
         console.log(res.data);
+        if (res?.data?.modifiedCount > 0) {
+            Swal.fire({
+                icon: "Success",
+                title: "Success",
+                text: "Successfully Updated",
+
+            });
+            refetch();
+        }
 
     }
     return (
@@ -36,7 +46,7 @@ const Update = () => {
                     <h2 className="text-center text-3xl font-bold ">Update Task</h2>
                     <br />
 
-                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-[700px] mx-auto bg-gray-100 px-4 py-8">
+                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-[370px] md:w-[580px] lg:w-[700px] mx-auto bg-gray-100 px-4 py-8">
                         <div>
                             <h2>Task Title</h2>
                             <input {...register("taskTitle", { required: true })} type="text" defaultValue={updatingTask.taskTitle} className="input input-bordered w-full" />
