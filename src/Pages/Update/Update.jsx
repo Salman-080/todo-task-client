@@ -78,10 +78,12 @@ const Update = () => {
 
 
                         <div className="text-center">
-                            <button className="btn bg-green-500">
+                            <button className="btn bg-green-500 ">
                                 Update Task
                             </button>
                         </div>
+                        
+                       
 
                     </form>
 
