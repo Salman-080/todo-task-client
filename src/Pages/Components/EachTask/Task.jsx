@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 
 
 const Task = ({ eachTask, index }) => {
-    const [allTasks, refetch, todo, inProgress, finished, handleDragging] = useTaskDatas();
+    const [allTasks, todo, inProgress, finished, handleDragging, refetch] = useTaskDatas();
     const axiosSecure = useAxiosPrivate();
     const [daysLeft, setDaysLeft] = useState(null);
 // console.log(eachTask);
@@ -22,15 +22,21 @@ const Task = ({ eachTask, index }) => {
         // console.log(currentDateTime)
 
         const dayLeft = deadLine - currentDateTime;
-        const result = Math.ceil(dayLeft / (1000 * 60 * 60 * 24));
-        // setDaysLeft(result);
-    },[])
+        let result = Math.ceil(dayLeft / (1000 * 60 * 60 * 24));
+
+        if (isNaN(result) || result < 0) {
+            result = 0;
+        }
+        setDaysLeft(result);
+
+    },[eachTask?.deadline])
+
     const handleRemove = async (taskId) => {
         console.log(taskId)
 
         const res = await axiosSecure.delete(`/taskDelete/${taskId}`);
         console.log(res?.data);
-        if (res?.data?.deletedCount > 0) {
+        if (res?.data?.msg=="deleted") {
             Swal.fire({
                 icon: "Success",
                 title: "Success",
@@ -94,7 +100,7 @@ const Task = ({ eachTask, index }) => {
 
             <dialog id={`my_modal_5${eachTask?.id}`} className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box">
-                    <h3 className="font-bold text-lg">DeadLine: <span>{eachTask?.deadline}</span></h3>
+                    <h3 className="font-bold text-lg">DeadLine:  DeadLine: <span>{new Date(eachTask?.deadline).toLocaleDateString()}</span></h3>
                     <p className="py-4">Days left: {daysLeft} </p>
                     <div className="modal-action">
                         <form method="dialog">

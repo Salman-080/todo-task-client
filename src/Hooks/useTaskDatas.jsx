@@ -20,28 +20,28 @@ const useTaskDatas = () => {
         }
     })
 
-    useEffect(()=>{
-        setTodo(allTasks?.filter((task) => task.status == "to do"));
-        setInProgress(allTasks?.filter((task) => task.status == "in progress"));
-        setFinished(allTasks?.filter((task) => task.status == "completed"));      
-    },[allTasks])
+    // useEffect(()=>{
+    //     setTodo(allTasks?.filter((task) => task.status == "to do"));
+    //     setInProgress(allTasks?.filter((task) => task.status == "in progress"));
+    //     setFinished(allTasks?.filter((task) => task.status == "completed"));      
+    // },[allTasks])
 
-    // useEffect(() => {
-    //     const todos = allTasks?.filter(task => task.status === "to do") || [];
-    //     const inProgressTasks = allTasks?.filter(task => task.status === "in progress") || [];
-    //     const finishedTasks = allTasks?.filter(task => task.status === "completed") || [];
+    useEffect(() => {
+        const todos = allTasks?.filter(task => task.status === "to do") || [];
+        const inProgressTasks = allTasks?.filter(task => task.status === "in progress") || [];
+        const finishedTasks = allTasks?.filter(task => task.status === "completed") || [];
       
-    //     // only setState jodi value change hoy
-    //     if (
-    //       JSON.stringify(todos) !== JSON.stringify(todo) ||
-    //       JSON.stringify(inProgressTasks) !== JSON.stringify(inProgress) ||
-    //       JSON.stringify(finishedTasks) !== JSON.stringify(finished)
-    //     ) {
-    //       setTodo(todos);
-    //       setInProgress(inProgressTasks);
-    //       setFinished(finishedTasks);
-    //     }
-    //   }, [allTasks]);
+        // only setState jodi value change hoy
+        if (
+          JSON.stringify(todos) !== JSON.stringify(todo) ||
+          JSON.stringify(inProgressTasks) !== JSON.stringify(inProgress) ||
+          JSON.stringify(finishedTasks) !== JSON.stringify(finished)
+        ) {
+          setTodo(todos);
+          setInProgress(inProgressTasks);
+          setFinished(finishedTasks);
+        }
+      }, [allTasks]);
 
     const handleDragging = async(res) => {
         

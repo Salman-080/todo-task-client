@@ -11,28 +11,29 @@ const Update = () => {
     const { user } = useContext(AuthContext);
     const { register, handleSubmit } = useForm();
     const { id } = useParams();
+    console.log(id);
     const { data: updatingTask = {}, refetch } = useQuery({
-        queryKey: ["updatingTask", id],
+        queryKey: ["getTaskForUpdate", id],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/updateTask/${id}`);
-            console.log(res.data);
+            const res = await axiosSecure.get(`/getTaskForUpdate/${id}`);
+            console.log(res?.data);
 
-            return res.data;
+            return res?.data;
         }
     })
-
+console.log(updatingTask);
     const onSubmit = async (UpdatingTaskData) => {
         console.log(UpdatingTaskData);
         console.log(id);
        
         
-        const res = await axiosSecure.put(`/DoUpdateTasksData/${id}`, UpdatingTaskData);
+        const res = await axiosSecure.put(`/updateTasksData/${id}`, UpdatingTaskData);
         console.log(res.data);
-        if (res?.data?.modifiedCount > 0) {
+        if (res?.data?.msg == "Done" > 0) {
             Swal.fire({
                 icon: "Success",
                 title: "Success",
-                text: "Successfully Updated",
+                text: "Task Successfully Updated",
 
             });
             refetch();
@@ -49,14 +50,14 @@ const Update = () => {
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-[370px] md:w-[580px] lg:w-[700px] mx-auto bg-gray-100 px-4 py-8">
                         <div>
                             <h2>Task Title</h2>
-                            <input {...register("taskTitle", { required: true })} type="text" defaultValue={updatingTask.taskTitle} className="input input-bordered w-full" />
+                            <input {...register("tasktitle", { required: true })} type="text" defaultValue={updatingTask?.tasktitle} className="input input-bordered w-full" />
                         </div>
 
 
                         <div className="flex gap-7">
                             <div>
                                 <h2>Priority</h2>
-                                <select defaultValue={updatingTask.priority} {...register("priority", { required: true })} className="select select-bordered w-full">
+                                <select defaultValue={updatingTask?.priority} {...register("priority", { required: true })} className="select select-bordered w-full">
                                     
                                     <option value="High">High</option>
                                     <option value="Moderate">Moderate</option>
@@ -66,14 +67,14 @@ const Update = () => {
 
                             <div>
                                 <h2>DeadLine</h2>
-                                <input {...register("deadLine", { required: true })} type="date" defaultValue={updatingTask.deadLine} className="input input-bordered w-full" />
+                                <input {...register("deadline", { required: true })} type="date" defaultValue={updatingTask?.deadline?.slice(0, 10)} className="input input-bordered w-full" />
                             </div>
 
                         </div>
 
                         <div>
                             <h2>Description</h2>
-                            <textarea {...register("taskDescription", { required: true })}  className="textarea textarea-bordered textarea-lg w-full" defaultValue={updatingTask.taskDescription} ></textarea>
+                            <textarea {...register("taskdescription", { required: true })}  className="textarea textarea-bordered textarea-lg w-full" defaultValue={updatingTask?.taskdescription} ></textarea>
                         </div>
 
 
