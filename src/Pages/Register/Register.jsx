@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { toast, ToastContainer } from "react-toastify";
 import useCurrentUser from "../../Hooks/useCurrentUser";
+import Swal from "sweetalert2";
 const image_hosting_key = import.meta.env.VITE_IMAGE_API;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
@@ -63,6 +64,7 @@ const Register = () => {
                 progress: undefined,
                 theme: "light",
               });
+             
 
               setTimeout(() => {
                 logOut().then((res) => {

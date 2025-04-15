@@ -29,9 +29,9 @@ console.log(updatingTask);
         
         const res = await axiosSecure.put(`/updateTasksData/${id}`, UpdatingTaskData);
         console.log(res.data);
-        if (res?.data?.msg == "Done" > 0) {
+        if (res?.data?.msg == "Done") {
             Swal.fire({
-                icon: "Success",
+                icon: "success",
                 title: "Success",
                 text: "Task Successfully Updated",
 
