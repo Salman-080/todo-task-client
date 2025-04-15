@@ -9,23 +9,39 @@ const useTaskDatas = () => {
     const [inProgress, setInProgress] = useState([])
     const [finished, setFinished] = useState([])
     const axiosSecure = useAxiosPrivate();
-    const { data: allTasks = [], refetch } = useQuery({
+    const { data: allTasks = [] ,refetch } = useQuery({
         queryKey: ["allTasks", user?.email],
+        enabled: !!user?.email,
         queryFn: async () => {
             const res = await axiosSecure.get(`/getAllTasks/${user?.email}`);
-            console.log(res.data);
+            // console.log(res.data);
     
             return res.data;
         }
     })
 
-    console.log(todo)
-
     useEffect(()=>{
         setTodo(allTasks?.filter((task) => task.status == "to do"));
         setInProgress(allTasks?.filter((task) => task.status == "in progress"));
-        setFinished(allTasks?.filter((task) => task.status == "completed"));
+        setFinished(allTasks?.filter((task) => task.status == "completed"));      
     },[allTasks])
+
+    // useEffect(() => {
+    //     const todos = allTasks?.filter(task => task.status === "to do") || [];
+    //     const inProgressTasks = allTasks?.filter(task => task.status === "in progress") || [];
+    //     const finishedTasks = allTasks?.filter(task => task.status === "completed") || [];
+      
+    //     // only setState jodi value change hoy
+    //     if (
+    //       JSON.stringify(todos) !== JSON.stringify(todo) ||
+    //       JSON.stringify(inProgressTasks) !== JSON.stringify(inProgress) ||
+    //       JSON.stringify(finishedTasks) !== JSON.stringify(finished)
+    //     ) {
+    //       setTodo(todos);
+    //       setInProgress(inProgressTasks);
+    //       setFinished(finishedTasks);
+    //     }
+    //   }, [allTasks]);
 
     const handleDragging = async(res) => {
         
@@ -38,10 +54,10 @@ const useTaskDatas = () => {
 
         //REMOVE FROM SOURCE ARRAY
 
-        if (source.droppableId == 2) {
+        if (source.droppableId == "b") {
             setInProgress(removeItemById(draggableId, inProgress));
         }
-        else if (source.droppableId == 3) {
+        else if (source.droppableId == "c") {
             setFinished(removeItemById(draggableId, finished));
         }
         else {
@@ -53,12 +69,12 @@ const useTaskDatas = () => {
         const task = findItemById(draggableId, [...todo, ...inProgress, ...finished]);
         console.log(task)
         //ADD ITEM
-        if (destination.droppableId == 2) {
+        if (destination.droppableId == "b") {
             setInProgress([{ ...task }, ...inProgress]);
             const res =await axiosSecure.patch(`/updateStatus/${draggableId}/${"in progress"}`);
             console.log(res.data);
         }
-        else if (destination.droppableId == 3) {
+        else if (destination.droppableId == "c") {
             setFinished([{ ...task }, ...finished]);
             const res =await axiosSecure.patch(`/updateStatus/${draggableId}/${"completed"}`);
             console.log(res.data);
@@ -69,22 +85,22 @@ const useTaskDatas = () => {
             console.log(res.data);
         }
     };
-    console.log(inProgress)
-    console.log(todo)
-    console.log(finished)
+    // console.log(inProgress)
+    // console.log(todo)
+    // console.log(finished)
 
     function findItemById(id, items) {
-        return items.find((item) => item._id == id);
+        return items.find((item) => item.id == id);
     }
 
     function removeItemById(id, items) {
-        return items.filter((item) => item._id != id);
+        return items.filter((item) => item.id != id);
 
     }
 
 
 
-    return [allTasks, refetch, todo, inProgress, finished, handleDragging]
+    return [allTasks, todo, inProgress, finished, handleDragging, refetch]
 };
 
 export default useTaskDatas;

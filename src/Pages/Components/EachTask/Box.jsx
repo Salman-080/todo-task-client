@@ -13,7 +13,7 @@ const TaskContainer = styled.div`
   height: 500px;
   overflow-y: scroll;
   -ms-overflow-style: none;
-  
+
   border: 1px solid gray;
 `;
 
@@ -25,40 +25,38 @@ const TaskList = styled.div`
   min-height: 100px;
 `;
 
-const Box = ({ taskTitle, taskProgress, id }) => {
+const Box = ({ taskTitle, taskProgress, idm }) => {
+  const { user } = useContext(AuthContext);
 
-    const { user } = useContext(AuthContext);
+  const axiosSecure = useAxiosPrivate();
+  // console.log(taskProgress);
 
-    const axiosSecure = useAxiosPrivate();
-
-
-
-
-    return (
-
-        <Droppable droppableId={id}>
-            {(provided, snapshot) => (
-                <TaskList
-                    ref={provided.innerRef}
-                    {...provided.droppableProps}
-                    isDraggingOver={snapshot.isDraggingOver}
-                >
-                    <TaskContainer className=" ">
-                        <div className="bg-violet-800 p-2 text-center text-white font-bold text-lg" >
-                            {taskTitle}
-                        </div>
-
-                        {
+  return (
+    <Droppable droppableId={idm}>
+      {(provided, snapshot) => (
+        <TaskList
+          ref={provided.innerRef}
+          {...provided.droppableProps}
+          isDraggingOver={snapshot.isDraggingOver}
+        >
+          <TaskContainer className=" ">
+            <div className="bg-violet-800 p-2 text-center text-white font-bold text-lg">
+              {taskTitle}
+            </div>
+            {/* {
                             taskProgress?.map((task, idx) => <Task eachTask={task} key={idx} index={idx}></Task>)
-                        }
-                        {provided.placeholder}
-                        </TaskContainer >
-                </TaskList>
+                        } */}
+            {(Array.isArray(taskProgress) ? taskProgress : []).map(
+              (task, idx) => (
+                <Task eachTask={task} key={idx} index={idx} />
+              )
             )}
-            
-        </Droppable>
-                      
-    );
+            {provided.placeholder}
+          </TaskContainer>
+        </TaskList>
+      )}
+    </Droppable>
+  );
 };
 
 export default Box;

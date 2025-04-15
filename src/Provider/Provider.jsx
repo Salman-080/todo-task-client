@@ -70,7 +70,7 @@ const Provider = ({ children }) => {
     logOut,
     googleSignIn
   }
-  console.log(user)
+  // console.log(user)
   return (
     <AuthContext.Provider value={authInfo}>
       {children}

@@ -6,11 +6,13 @@ import { AuthContext } from "../Provider/Provider";
 const useCurrentUser = () => {
     const axiosSecure=useAxiosPrivate();
     const {user}=useContext(AuthContext);
+    const userEmail=user?.email;
     const { data: userInfo = {}, refetch } = useQuery({
-        queryKey: ["userInfo", user?.email],
+        queryKey: ["userInfo", userEmail],
+        enabled: !!userEmail,
         queryFn: async () => {
-            const res = await axiosSecure.get(`/getAllUserInfo/${user?.email}`);
-            console.log(res.data);
+            const res = await axiosSecure.get(`/getAllUserInfo/${userEmail}`);
+            // console.log(res.data);
     
             return res.data;
         }

@@ -3,8 +3,10 @@ import useAxiosPrivate from "../../Hooks/useAxiosPrivate";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/Provider";
 import Swal from "sweetalert2";
+import useTaskDatas from "../../Hooks/useTaskDatas";
 
 const CreateTask = () => {
+    const [allTasks, todo, inProgress, finished, handleDragging, refetch]=useTaskDatas();
     const axiosSecure=useAxiosPrivate();
     const {user}= useContext(AuthContext);
     const { register, handleSubmit } = useForm()
@@ -14,7 +16,7 @@ const CreateTask = () => {
         taskData.userEmail= user?.email;
         const res= await axiosSecure.post("/tasksData", taskData);
         console.log(res.data);
-        if(res?.data?.insertedId){
+        if(res?.data?.msg){
             Swal.fire({
                 icon: "Success",
                 title: "Success",
@@ -22,6 +24,7 @@ const CreateTask = () => {
 
             });
         }
+        refetch();
 
     }
     return (
