@@ -16,9 +16,11 @@ const Navbar = () => {
   };
   const navLinks = (
     <div className="flex flex-col lg:flex-row gap-3">
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
+    
+        <li>
+          <NavLink to="/">Home</NavLink>
+        </li>
+    
 
       {user && (
         <li>
@@ -26,7 +28,6 @@ const Navbar = () => {
         </li>
       )}
 
-    
       {user && (
         <li>
           <NavLink to="/createTask">Create New Task</NavLink>
@@ -36,11 +37,6 @@ const Navbar = () => {
         <NavLink to="/contactUs">Contact Us</NavLink>
       </li>
 
-      {user && (
-        <li>
-          <NavLink to="/myProfile">My Profile</NavLink>
-        </li>
-      )}
     </div>
   );
   return (
@@ -72,7 +68,11 @@ const Navbar = () => {
             </ul>
           </div>
           <div className="">
-            <img className="w-[45px] h-[45px]" src="/taskLogo.png" alt="" />
+            <img
+              className="w-[45px] h-[45px] rounded-full"
+              src="/taskManagementLogo.jpg"
+              alt=""
+            />
           </div>
         </div>
         <div className="navbar-center hidden lg:flex">
@@ -80,10 +80,6 @@ const Navbar = () => {
         </div>
 
         <div className="navbar-end space-x-5">
-          {/* <h2 className="font-semibold">
-              <span className="text-green-600">Currently signedIn: </span>
-              {userInfo?.userName}
-            </h2> */}
           <div className="dropdown">
             {user ? (
               <img

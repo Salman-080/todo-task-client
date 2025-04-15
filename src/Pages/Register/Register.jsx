@@ -4,22 +4,35 @@ import { Link, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { toast, ToastContainer } from "react-toastify";
 import useCurrentUser from "../../Hooks/useCurrentUser";
+const image_hosting_key = import.meta.env.VITE_IMAGE_API;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const Register = () => {
   const { createUser, profileInfo, logOut, googleSignIn } =
     useContext(AuthContext);
   const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
-  const [,refetch]=useCurrentUser();
+  const [, refetch] = useCurrentUser();
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
+
     const form = new FormData(e.currentTarget);
+
+    const imageFile = {
+      image: e.target.image.files[0],
+    };
+
+    const res = await axiosPublic.post(image_hosting_api, imageFile, {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    });
 
     const registerName = form.get("name");
     const registerEmail = form.get("email");
     const registerPassword = form.get("password");
-    const registerImage = form.get("image");
+    const registerImage = res.data.data.display_url;
 
     createUser(registerEmail, registerPassword)
       .then((res) => {
@@ -54,14 +67,16 @@ const Register = () => {
               setTimeout(() => {
                 logOut().then((res) => {
                   navigate("/login");
-                });
-              }, 2000).catch((err) => {});
+                })
+                .catch((err) => {});
+              }, 2000)
             } else if (res?.data?.msg == "Email Already Exist") {
               console.warn("User already exists");
             } else {
               return;
             }
           })
+
           .catch((error) => {
             console.log(error);
           });
@@ -82,27 +97,26 @@ const Register = () => {
       });
   };
 
-
   const handleGoogleLogIn = () => {
     googleSignIn()
-        .then(async (res) => {
-            console.log(res.user);
+      .then(async (res) => {
+        console.log(res.user);
 
-            const userInfo = {
-                userName: res.user?.displayName,
-                userEmail: res.user?.email,
-                userImage: res.user?.photoURL
-            }
+        const userInfo = {
+          userName: res.user?.displayName,
+          userEmail: res.user?.email,
+          userImage: res.user?.photoURL,
+        };
 
-            const response = await axiosPublic.post("/userData", userInfo);
-            console.log(response.data);
-            refetch();
-            navigate("/dashboardHome");
-        })
-        .catch(err => {
-            console.log(err);
-        })
-}
+        const response = await axiosPublic.post("/userData", userInfo);
+        console.log(response.data);
+        refetch();
+        navigate("/dashboardHome");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div>
@@ -136,9 +150,9 @@ const Register = () => {
 
                 <input
                   name="image"
-                  type="text"
+                  type="file"
                   placeholder="Your Photo Url"
-                  className="input input-bordered"
+                  className="input input-bordered py-2"
                 />
               </div>
               <div className="form-control">

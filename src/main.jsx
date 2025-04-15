@@ -21,8 +21,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import Update from './Pages/Update/Update.jsx';
-import MyProfile from './Pages/MyProfile/MyProfile.jsx';
-import AboutUs from './Pages/AboutUs/AboutUs.jsx';
+
 import Contact from './Pages/Contact/Contact.jsx';
 
 const router = createBrowserRouter([
@@ -54,14 +53,7 @@ const router = createBrowserRouter([
         path: "/update/:id",
         element: <Update></Update>,
       },
-      {
-        path: "/myProfile",
-        element: <MyProfile></MyProfile>,
-      },
-      {
-        path: "/aboutUs",
-        element: <AboutUs></AboutUs>,
-      },
+      
       {
         path: "/contactUs",
         element: <Contact></Contact>,

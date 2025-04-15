@@ -20,18 +20,12 @@ const useTaskDatas = () => {
         }
     })
 
-    // useEffect(()=>{
-    //     setTodo(allTasks?.filter((task) => task.status == "to do"));
-    //     setInProgress(allTasks?.filter((task) => task.status == "in progress"));
-    //     setFinished(allTasks?.filter((task) => task.status == "completed"));      
-    // },[allTasks])
 
     useEffect(() => {
         const todos = allTasks?.filter(task => task.status === "to do") || [];
         const inProgressTasks = allTasks?.filter(task => task.status === "in progress") || [];
         const finishedTasks = allTasks?.filter(task => task.status === "completed") || [];
       
-        // only setState jodi value change hoy
         if (
           JSON.stringify(todos) !== JSON.stringify(todo) ||
           JSON.stringify(inProgressTasks) !== JSON.stringify(inProgress) ||
@@ -52,7 +46,6 @@ const useTaskDatas = () => {
             return;
         }
 
-        //REMOVE FROM SOURCE ARRAY
 
         if (source.droppableId == "b") {
             setInProgress(removeItemById(draggableId, inProgress));
@@ -64,11 +57,10 @@ const useTaskDatas = () => {
             setTodo(removeItemById(draggableId, todo));
         }
 
-        // GET ITEM
 
         const task = findItemById(draggableId, [...todo, ...inProgress, ...finished]);
         console.log(task)
-        //ADD ITEM
+
         if (destination.droppableId == "b") {
             setInProgress([{ ...task }, ...inProgress]);
             const res =await axiosSecure.patch(`/updateStatus/${draggableId}/${"in progress"}`);
@@ -85,9 +77,7 @@ const useTaskDatas = () => {
             console.log(res.data);
         }
     };
-    // console.log(inProgress)
-    // console.log(todo)
-    // console.log(finished)
+   
 
     function findItemById(id, items) {
         return items.find((item) => item.id == id);
@@ -97,8 +87,6 @@ const useTaskDatas = () => {
         return items.filter((item) => item.id != id);
 
     }
-
-
 
     return [allTasks, todo, inProgress, finished, handleDragging, refetch]
 };

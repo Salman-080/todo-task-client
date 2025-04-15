@@ -1,4 +1,3 @@
-import "./Home.css";
 
 const Home = () => {
   return (
@@ -15,10 +14,10 @@ const Home = () => {
           <div className="flex relative gap-2 ">
             <input
               className="pl-2 py-2 border border-black rounded-lg w-80 pr-[40px]"
-              type="text"
+              type="email"
               placeholder="Enter your email"
             />
-            <button className="bg-green-500 px-3 py-[9px] rounded-r-lg rounded-l-none  whitespace-nowrap absolute right-[30%] text-white font-semibold">
+            <button className="bg-green-500 px-3 py-[9px] rounded-r-lg rounded-l-none  whitespace-nowrap absolute right-0 md:right-2 lg:right-[30%] text-white font-semibold">
               Subscribe
             </button>
           </div>
@@ -27,12 +26,12 @@ const Home = () => {
               <div className="text-center">
                 <p className="text-5xl font-semibold">75.2%</p>
 
-                <p className="font-semibold">Average daily user</p>
+                <p className="font-semibold">Task completion rate</p>
               </div>
               <div className="text-center">
                 <p className="text-5xl font-semibold">20K</p>
 
-                <p>Average daily user</p>
+                <p className="font-semibold">Average daily user</p>
               </div>
             </div>
             <div className=" flex space-x-4">
