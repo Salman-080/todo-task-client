@@ -86,7 +86,7 @@ const Navbar = () => {
                 tabIndex={0}
                 role="button"
                 className="w-[45px] h-[45px] rounded-full hover:opacity-50"
-                src={user?.photoURL}
+                src={userInfo?.userimage || "/brokenImageAvatar.jpg"}
                 alt=""
               />
             ) : (

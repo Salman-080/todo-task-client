@@ -21,6 +21,13 @@
 - Used ubuntu on VM for the reverse proxy setup process.
 - used the pm2 monitoring tools for node.js.
 - Did the basic firewall rules and SSH key authentication.
+- Did deploy on NGINX
 
 ## Postman
 - Used this tool for API testing.
+
+# Frontend Live Link: http://192.168.0.100/
+
+# Backend Live Link: http://192.168.0.100/api
+
+
