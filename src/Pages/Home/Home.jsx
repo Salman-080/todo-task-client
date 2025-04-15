@@ -1,65 +1,91 @@
-import { Link } from "react-router-dom";
+import "./Home.css";
 
 const Home = () => {
-    return (
-        <div>
-            <div className="relative">
-                <div className="relative h-[600px] w-full">
-                    <h2 className="absolute top-[40%] left-3 md:left-11 text-white text-md md:text-xl lg:text-3xl font-bold w-[200px] md:w-[300px] lg:w-[600px]">
-                        Organize Tasks, Boost Productivity
-                        <br />
-                        Simplify Your Workflow with Our Task Management System
-                    </h2>
-                    <Link to="/login"><button className="btn bg-white border   absolute  bottom-5 md:top-[62%] left-[40%] md:left-11">Let's Explore</button></Link>
-                    <div>
+  return (
+    <div className=" max-w-screen-2xl mx-auto mt-20">
+      <div className="flex px-16">
+        <div className="space-y-8">
+          <h1 className=" text-2xl md:text-3xl lg:text-5xl font-bold">
+            Take Control of <br /> Your Tasks
+          </h1>
+          <p className="text-lg font-semibold">
+            Fast, intuitive, and collaborative—organize your tasks, track
+            progress, and get more done every day
+          </p>
+          <div className="flex relative gap-2 ">
+            <input
+              className="pl-2 py-2 border border-black rounded-lg w-80 pr-[40px]"
+              type="text"
+              placeholder="Enter your email"
+            />
+            <button className="bg-green-500 px-3 py-[9px] rounded-r-lg rounded-l-none  whitespace-nowrap absolute right-[30%] text-white font-semibold">
+              Subscribe
+            </button>
+          </div>
+          <div className="space-y-8">
+            <div className="flex gap-16">
+              <div className="text-center">
+                <p className="text-5xl font-semibold">75.2%</p>
 
-                    </div>
-                    <img className="h-full w-full" src="/Capture.PNG" alt="" />
+                <p className="font-semibold">Average daily user</p>
+              </div>
+              <div className="text-center">
+                <p className="text-5xl font-semibold">20K</p>
 
-                </div>
-
+                <p>Average daily user</p>
+              </div>
             </div>
-
-
-            <div className="mt-12 max-w-screen-xl mx-auto">
-                <div className="text-center text-3xl font-bold mb-5">Frequently Asked Questions</div>
-                <div className="collapse collapse-arrow bg-base-200">
-                    <input type="radio" name="my-accordion-2" checked="checked" />
-                    <div className="collapse-title text-xl font-medium">
-                        Who are using and getting Benefits from SCC Technovision's Task Management Platform?
-                    </div>
-                    <div className="collapse-content">
-                        <p>
-                            1. Developers and Tech Teams:
-                        </p>
-                        <br />
-                        <p>
-                            2. Corporate Professionals:
-                        </p>
-                        <br />
-                        <p>
-                            3. Bankers and Finance Professionals:
-                        </p>
-                        <br />
-                        <p>
-                            4. Educators and Students:
-                        </p>
-                        <br />
-                        <p>
-                            5. Healthcare Professionals:
-                        </p>
-                        <br />
-                        <p>
-                            6. Project Managers in Various Industries:
-                        </p>
-                        <br /><br />
-                        And many more
-                    </div>
-                </div>
-
+            <div className=" flex space-x-4">
+              <div className="rating rating-xl space-x-1">
+                <input
+                  type="radio"
+                  name="rating-9"
+                  className="mask mask-star-2 bg-orange-400"
+                  aria-label="1 star"
+                />
+                <input
+                  type="radio"
+                  name="rating-9"
+                  className="mask mask-star-2 bg-orange-400"
+                  aria-label="2 star"
+                  
+                />
+                <input
+                  type="radio"
+                  name="rating-9"
+                  className="mask mask-star-2 bg-orange-400"
+                  aria-label="3 star"
+                />
+                <input
+                  type="radio"
+                  name="rating-9"
+                  className="mask mask-star-2 bg-orange-400"
+                  aria-label="4 star"
+                  defaultChecked
+                />
+                <input
+                  type="radio"
+                  name="rating-9"
+                  className="mask mask-star-2 bg-orange-400"
+                  aria-label="5 star"
+                /> 
+                
+              </div>
+              <p>4.5</p>
+                <p className="text-gray-500">Average User Rating</p>
             </div>
+          </div>
         </div>
-    );
+       
+          <div className="w-[80%]  border-green-800 flex">
+            <img className="w-full mx-auto" src="/todoBanner.jpg" alt="" />
+       
+        </div>
+      </div>
+
+      
+    </div>
+  );
 };
 
 export default Home;
